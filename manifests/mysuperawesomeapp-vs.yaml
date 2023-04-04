@@ -1,0 +1,22 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mysuperawesomeapp-vs
+  labels:
+    app: mysuperawesomeapp
+    version: 0.0.1
+    backstage.io/kubernetes-id: mysuperawesomeapp
+spec:
+  gateways:
+  - istio-gateway/apps-gateway
+  hosts:
+  - mysuperawesomeapp.apps.wwtlab.net
+  http:
+  - name: primary
+    route:
+    - destination:
+        host: mysuperawesomeapp-svc
+        port:
+          number: 80
+      weight: 100
